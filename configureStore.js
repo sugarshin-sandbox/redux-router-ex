@@ -1,13 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { reduxReactRouter } from 'redux-router';
-import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import createHistory from 'history/lib/createBrowserHistory';
 
 import rootReducer from './reducers';
 
+const middlewares = process.env.NODE_ENV === 'production' ?
+  [thunk] : [thunk, require('redux-logger')()];
+
 const finalCreateStore = compose(
   reduxReactRouter({ createHistory }),
-  applyMiddleware(logger())
+  applyMiddleware(...middlewares)
 )(createStore);
 
 export default function configureStore(initialState) {

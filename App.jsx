@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import { pushState } from 'redux-router';
 import { connect } from 'react-redux';
 
-@connect(state => ({ routerState: state.router }), { pushState })
-export default class App extends Component {
+// @connect(state => ({ routerState: state.router }), { pushState })
+class App extends Component {
 
   render() {
     return (
@@ -30,3 +30,5 @@ export default class App extends Component {
   }
 
 }
+
+export default connect(state => ({ routerState: state.router }), { pushState })(App);
